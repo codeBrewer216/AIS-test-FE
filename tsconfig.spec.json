@@ -4,12 +4,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [
-      "vitest/globals"
-    ]
+    "rootDir": "./", // <-- Add this line (or set to "./src/app" based on your project layout)
+    "types": ["vitest/globals"]
   },
-  "include": [
-    "src/**/*.d.ts",
-    "src/**/*.spec.ts"
-  ]
+  "include": ["src/**/*.d.ts", "src/**/*.spec.ts"]
 }
