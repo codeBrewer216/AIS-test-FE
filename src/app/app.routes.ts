@@ -11,11 +11,17 @@ import { Register } from './pages/register/register';
 export const routes: Routes = [
   {
     path: '',
-    component: Home
+    component: MainLayout,
+    children: [
+      { path: '', component: Home },
+      { path: 'admin', component: AdminDashboard },
+      { path: 'booking', component: Booking },
+      { path: 'ticket', component: Ticket }
+    ]
   },
   {
     path: 'dashboard',
-    component: MainLayout,
+    // component: ,
     children: [
       { path: 'admin', component: AdminDashboard },
       { path: 'booking', component: Booking },

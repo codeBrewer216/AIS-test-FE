@@ -1,0 +1,62 @@
+/* Navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background: rgba(0, 0, 0, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ef4444;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.btn-login {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  background: #22c55eea;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-register {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  background: #eab308;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-logout {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  background: #ef4444;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #0f172a;
+  color: #9ca3af;
+}

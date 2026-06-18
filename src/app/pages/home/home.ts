@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, } from '@angular/core';
 
 @Component({
   standalone: true,
   selector: 'app-home',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
 })
 export class Home {
 
+
+  // ngOnInit() {
+  //   console.log(this.isLogined);
+  // }
 }

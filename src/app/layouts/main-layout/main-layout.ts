@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from "@angular/router";
-
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { AuthService } from '../../services/auth';
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
-export class MainLayout { }
+export class MainLayout {
+  private authService = inject(AuthService);
+  private router = inject(Router)
+  path = this.router.url
+  isLogined = this.authService.isLoggedIn()
+  role = this.authService.getRole()
+  ngOnInit() {
+    console.log(this.path, this.role)
+  }
+}

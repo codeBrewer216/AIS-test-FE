@@ -1,11 +1,42 @@
 <div class="layout">
-  <header>Header</header>
+  <header>
+    <nav>
+      <div class="logo">🎬 MovieBook</div>
 
-  <aside>Sidebar</aside>
+      @if (isLogined) {
+        <div class="nav-links">
+          <a routerLink="/">Home</a>
+          @if (role === 'admin') {
+            <a routerLink="/admin">Admin</a>
+          }
+          <a routerLink="/booking">Booking</a>
+          <a routerLink="/ticket">My Tickets</a>
+        </div>
+      }
+      @if (isLogined) {
+        <div class="flex gap-4">
+          <div class="flex gap-4">
+            <a routerLink="/auth/login">
+              <button class="btn-logout">Logout</button>
+            </a>
+          </div>
+        </div>
+      } @else {
+        <div class="flex gap-4">
+          <a routerLink="/auth/login">
+            <button class="btn-login">Login</button>
+          </a>
+          <a routerLink="/auth/register">
+            <button class="btn-register">Register</button>
+          </a>
+        </div>
+      }
+    </nav>
+  </header>
 
   <main>
     <router-outlet />
   </main>
 
-  <footer>Footer</footer>
+  <footer>© 2026 MovieBook. All Rights Reserved.</footer>
 </div>
