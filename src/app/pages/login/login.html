@@ -1,0 +1,42 @@
+<p class="subtitle">Sign in to reserve your movie tickets</p>
+
+<form #registerForm="ngForm" (ngSubmit)="login()">
+  <div class="form-group">
+    <label>Email</label>
+    <input name="email" [(ngModel)]="form.email" type="email" placeholder="Enter your email" />
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <div class="password-group">
+      <input
+        name="password"
+        [(ngModel)]="form.password"
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Enter your password"
+      />
+
+      <button type="button" class="toggle-password" (click)="togglePassword()">
+        <div class="text-amber-50 text-sm">
+          {{ showPassword ? 'Hidden' : 'Show' }}
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div class="options">
+    <label>
+      <input type="checkbox" />
+      Remember me
+    </label>
+
+    <a href="#">Forgot password?</a>
+  </div>
+
+  <button type="submit" class="btn-login">Login</button>
+
+  <p class="register-link">
+    Don't have an account?
+    <a routerLink="/auth/register">Register</a>
+  </p>
+</form>
