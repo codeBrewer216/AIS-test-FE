@@ -9,8 +9,4 @@ import { Component, } from '@angular/core';
 })
 export class Home {
 
-
-  // ngOnInit() {
-  //   console.log(this.isLogined);
-  // }
 }

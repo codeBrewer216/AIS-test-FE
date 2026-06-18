@@ -1,0 +1,11 @@
+button {
+  border: solid 1px #bebebe;
+  padding: 8px;
+  font-size: 24;
+  border-radius: 8px;
+}
+
+h1 {
+  font-size: x-large;
+  font-weight: 600;
+}

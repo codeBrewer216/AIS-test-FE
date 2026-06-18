@@ -16,4 +16,8 @@ export class MainLayout {
   ngOnInit() {
     console.log(this.path, this.role)
   }
+
+  logout() {
+    this.authService.logout()
+  }
 }
