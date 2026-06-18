@@ -1,8 +1,86 @@
 <div class="m-6">
   <div class="flex gapt-4 my-4">
-    <button>Add Movie</button>
+    <button (click)="openModal()">Add Movie</button>
   </div>
   <div>
     <h1>Moives List</h1>
   </div>
 </div>
+
+@if (showModal()) {
+  <div class="modal-backdrop" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>Add Movie</h2>
+
+      <div class="form-group">
+        <label>Name</label>
+
+        <input type="text" [(ngModel)]="movie.name" />
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+
+        <textarea [(ngModel)]="movie.description"> </textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Type</label>
+        <input type="text" [(ngModel)]="movie.type" />
+      </div>
+      <div class="form-group">
+        <label>Duration (minutes)</label>
+
+        <input type="number" [(ngModel)]="movie.duration" />
+      </div>
+
+      <div class="form-group">
+        <label>Poster Image</label>
+
+        <input
+          #fileInput
+          type="file"
+          accept="image/*"
+          class="file-input"
+          (change)="onFileSelected($event)"
+        />
+
+        @if (isImageLoading) {
+          <div class="loading mx-auto">
+            <div class="spinner"></div>
+            <span>Uploading image...</span>
+          </div>
+        }
+
+        @if (movie.poster) {
+          <div class="flex flex-col items-center gap-2 mt-2">
+            <img
+              [src]="movie.poster"
+              alt="Poster Preview"
+              class="w-48 h-auto rounded-lg border"
+              (load)="onImageLoaded()"
+              (error)="onImageError()"
+            />
+
+            <button type="button" class="btn-remove" (click)="removePoster(fileInput)">
+              Remove Image
+            </button>
+          </div>
+        }
+      </div>
+      <div class="form-group">
+        <label>Start Date</label>
+        <Input type="datetime-local" />
+      </div>
+      <div class="form-group">
+        <label>End Date</label>
+        <Input type="datetime-local" />
+      </div>
+      <div class="actions">
+        <button class="btn-cancel" (click)="closeModal()">Cancel</button>
+
+        <button class="btn-save" (click)="saveMovie()">Save</button>
+      </div>
+    </div>
+  </div>
+}
