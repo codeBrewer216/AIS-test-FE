@@ -5,9 +5,10 @@ import { AuthService } from './auth';
 import { isPlatformBrowser } from '@angular/common';
 
 export interface Movie {
+  _id?: string
   name: string,
   description: string,
-  duration: number,
+  length: number,
   poster: string,
   startDate: Date,
   endDate: Date
@@ -34,4 +35,34 @@ export class MoviesService {
       }
     );
   }
+
+  getList() {
+    return this.http.get<Movie[]>(this.apiUrl);
+  }
+
+  delete(id: string) {
+    const accessToken = this.authService.getToken();
+    return this.http.delete(
+      `${this.apiUrl}/${id}`,
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${accessToken}`,
+        }),
+      }
+    );
+  }
+
+  put(id: string, movie: Movie) {
+    const accessToken = this.authService.getToken();
+    return this.http.put(`${this.apiUrl}/${id}`,
+      movie,
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${accessToken}`,
+        }),
+      }
+    )
+  }
 }
+
+

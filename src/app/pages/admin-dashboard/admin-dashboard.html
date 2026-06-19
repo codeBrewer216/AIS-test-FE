@@ -4,13 +4,61 @@
   </div>
   <div>
     <h1>Moives List</h1>
+    <table class="movie-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Duration (Minutes)</th>
+          <th>Poster</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (item of moviesList(); track item) {
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.length }}</td>
+            <td>
+              <img [src]="item.poster" class="max-h-40 mx-auto" [alt]="item.name" />
+            </td>
+            <td class="text-center">
+              <div class="flex justify-center gap-4">
+                <button class="btn-edit" (click)="openEditMoDal(item)">Edit</button>
+                <button class="btn-delete" (click)="openDeleteModal(item._id!)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
   </div>
 </div>
+
+@if (showDeleteModal()) {
+  <div class="modal-backdrop" (click)="closeDeleteModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>Delete Movie</h2>
+
+      <p>Are you sure you want to delete this movie?</p>
+
+      <div class="actions">
+        <button class="btn-delete-cancel" (click)="closeDeleteModal()">Cancel</button>
+
+        <button class="btn-delete" (click)="submitDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+}
 
 @if (showModal()) {
   <div class="modal-backdrop" (click)="closeModal()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h2>Add Movie</h2>
+      <h2>{{ modalMode() === 'create' ? 'Add' : 'Edit' }} Movie</h2>
 
       <div class="form-group">
         <label>Name</label>
@@ -31,7 +79,7 @@
       <div class="form-group">
         <label>Duration (minutes)</label>
 
-        <input type="number" [(ngModel)]="movie.duration" />
+        <input type="number" [(ngModel)]="movie.length" />
       </div>
 
       <div class="form-group">
@@ -70,11 +118,11 @@
       </div>
       <div class="form-group">
         <label>Start Date</label>
-        <Input type="datetime-local" />
+        <input type="datetime-local" [(ngModel)]="startDateString" />
       </div>
       <div class="form-group">
         <label>End Date</label>
-        <Input type="datetime-local" />
+        <input type="datetime-local" [(ngModel)]="endDateString" />
       </div>
       <div class="actions">
         <button class="btn-cancel" (click)="closeModal()">Cancel</button>

@@ -1,1 +1,105 @@
-<p>booking works!</p>
+<div class="m-6">
+  <div class="movie-list">
+    @for (movie of moviesList(); track movie._id) {
+      <div
+        class="movie-card"
+        [class.active]="selectedMovie()?._id === movie._id"
+        (click)="selectMovie(movie)"
+      >
+        <img [src]="movie.poster" />
+
+        <div class="movie-info">
+          <h3>{{ movie.name }}</h3>
+
+          <p>{{ movie.type }}</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (selectedMovie()) {
+    <div class="showtime-section">
+      <h3>Select Showtime</h3>
+
+      <div class="showtime-list">
+        @for (time of showtimes; track time) {
+          <button
+            class="showtime-btn"
+            [class.active]="selectedShowtime() === time"
+            (click)="selectShowTime(time)"
+          >
+            {{ time }}
+          </button>
+        }
+      </div>
+    </div>
+    @if (selectedShowtime()) {
+      <div class="screen">SCREEN</div>
+
+      <div class="seat-grid">
+        @for (row of rows; track row) {
+          <div class="seat-row">
+            <div class="row-label">
+              {{ row }}
+            </div>
+
+            @for (seat of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track seat) {
+              <button
+                class="seat"
+                [class.selected]="selectedSeats().includes(row + seat)"
+                (click)="toggleSeat(row + seat)"
+              >
+                {{ seat }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="summary">
+        <h3>Selected Seats</h3>
+
+        <p>{{ selectedSeats().join(', ') || '-' }}</p>
+
+        <button
+          class="reserve-btn"
+          [disabled]="selectedSeats().length === 0"
+          (click)="openReserveModal()"
+        >
+          Reserve Ticket
+        </button>
+      </div>
+    }
+  }
+</div>
+
+@if (showConfirmModal()) {
+  <div class="modal-backdrop" (click)="closeReserveModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>🎟️ Confirm Reservation</h2>
+
+      <div class="reservation-info">
+        <div class="info-row">
+          <span>Movie</span>
+          <strong>{{ selectedMovie()?.name }}</strong>
+        </div>
+
+        <div class="info-row">
+          <span>Showtime</span>
+          <strong>{{ selectedShowtime() }}</strong>
+        </div>
+
+        <div class="info-row">
+          <span>Seats</span>
+          <strong>{{ selectedSeats().join(', ') }}</strong>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-cancel" (click)="closeReserveModal()">Cancel</button>
+
+        <button class="btn-confirm" (click)="confirmReservation()">Confirm</button>
+      </div>
+    </div>
+  </div>
+}

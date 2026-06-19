@@ -78,6 +78,14 @@ h1 {
   border-radius: 8px;
 }
 
+.btn-delete-cancel {
+  background: #fefefe;
+  color: #0e0e0e;
+  border: solid 1px #c1c1c1;
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
 .loading {
   display: flex;
   align-items: center;
@@ -141,4 +149,179 @@ h1 {
 
 .file-input::file-selector-button:hover {
   background: #1d4ed8;
+}
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+
+  color: #374151;
+}
+.form-group input[type='datetime-local'] {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  background: white;
+
+  transition: all 0.2s ease;
+}
+
+.form-group input[type='datetime-local']:focus {
+  outline: none;
+
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.movie-table {
+  margin-top: 16px;
+  width: 100%;
+  border-collapse: collapse;
+
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.movie-table th {
+  background: #0f172a;
+  color: white;
+
+  text-align: center;
+  padding: 14px 18px;
+
+  font-weight: 600;
+}
+
+.movie-table td {
+  padding: 14px 18px;
+  border: solid 0.5px #e5e7eb;
+}
+
+.movie-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.movie-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.btn-edit {
+  background-color: rgb(255, 255, 9);
+  color: #050505;
+}
+
+.btn-delete {
+  background-color: #ef4444;
+  color: #050505;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+
+  background: white;
+  border-radius: 16px;
+
+  padding: 24px;
+
+  box-shadow:
+    0 20px 40px rgb(0 0 0 / 20%),
+    0 4px 12px rgb(0 0 0 / 10%);
+
+  animation: modalFade 0.2s ease-out;
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.modal p {
+  margin: 16px 0 24px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-cancel,
+.btn-delete {
+  border: none;
+  border-radius: 8px;
+
+  padding: 10px 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s;
+}
+
+.btn-cancel {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-cancel:hover {
+  background: #e5e7eb;
+}
+
+.btn-delete {
+  background: #dc2626;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #b91c1c;
+}
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

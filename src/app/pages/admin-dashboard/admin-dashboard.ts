@@ -4,7 +4,7 @@ import { StorageService } from '../../services/storage';
 import { Movie, MoviesService } from '../../services/movies';
 
 export interface UploadResponse {
-  _id: string;
+  _id?: string;
   filename: string;
   originalName: string;
   mimeType: string;
@@ -25,12 +25,15 @@ export interface UploadResponse {
 export class AdminDashboard {
   private storageService = inject(StorageService);
   private moviesService = inject(MoviesService)
+  modalMode = signal<'create' | 'edit' | ''>('')
   showModal = signal(false);
-
+  showDeleteModal = signal(false)
+  selectMovieID = ''
+  moviesList = signal<Movie[]>([]);
   movie = {
     name: '',
     description: '',
-    duration: 0,
+    length: 0,
     poster: '',
     startDate: new Date(),
     endDate: new Date(),
@@ -38,8 +41,51 @@ export class AdminDashboard {
   };
   isImageLoading = false;
 
+  ngOnInit() {
+    this.moviesService.getList().subscribe({
+      next: (res: Movie[]) => {
+        this.moviesList.set(res)
+      }
+    })
+  }
+
+  openDeleteModal(id: string) {
+    this.selectMovieID = id
+    this.showDeleteModal.set(true)
+  }
+
+  closeDeleteModal() {
+    this.selectMovieID = ''
+    this.showDeleteModal.set(false)
+  }
+
+  submitDelete() {
+    this.delete(this.selectMovieID)
+    this.selectMovieID = ''
+    this.showDeleteModal.set(false)
+    this.ngOnInit()
+  }
+
   openModal() {
+    this.modalMode.update(_v => 'create')
     this.showModal.set(true);
+  }
+
+  openEditMoDal(selected?: Movie) {
+    if (selected) {
+      this.selectMovieID = selected._id ?? ''
+      this.movie = {
+        name: selected.name ?? '',
+        description: selected.description ?? '',
+        length: selected.length ?? 0,
+        poster: selected.poster ?? '',
+        startDate: selected.startDate ? new Date(selected.startDate as any) : new Date(),
+        endDate: selected.endDate ? new Date(selected.endDate as any) : new Date(),
+        type: selected.type ?? ''
+      };
+    }
+    this.openModal();
+    this.modalMode.update(_v => 'edit')
   }
 
   closeModal() {
@@ -47,7 +93,7 @@ export class AdminDashboard {
       name: '',
       type: '',
       description: '',
-      duration: 0,
+      length: 0,
       poster: '',
       startDate: new Date(),
       endDate: new Date()
@@ -57,7 +103,12 @@ export class AdminDashboard {
   }
 
   saveMovie() {
-    this.create(this.movie)
+    if (this.modalMode() === 'create') {
+
+      this.create(this.movie)
+    } else {
+      this.edit(this.selectMovieID)
+    }
     this.closeModal()
   }
 
@@ -89,14 +140,57 @@ export class AdminDashboard {
   onImageError() {
     this.isImageLoading = false;
   }
+
+  // Helpers to bind Date objects to <input type="datetime-local"> which
+  // expects a string like "YYYY-MM-DDTHH:MM" in local time.
+  private toInputString(d: Date): string {
+    if (!d) return '';
+    const tzOffset = d.getTimezoneOffset();
+    const local = new Date(d.getTime() - tzOffset * 60000);
+    return local.toISOString().slice(0, 16);
+  }
+
+  get startDateString(): string {
+    return this.toInputString(this.movie.startDate ?? new Date());
+  }
+
+  set startDateString(v: string) {
+    this.movie.startDate = v ? new Date(v) : new Date();
+  }
+
+  get endDateString(): string {
+    return this.toInputString(this.movie.endDate ?? new Date());
+  }
+
+  set endDateString(v: string) {
+    this.movie.endDate = v ? new Date(v) : new Date();
+  }
   create(moive: Movie) {
     if (moive) {
 
       this.moviesService.create(moive).subscribe({
         next: (res) => {
-          console.log(res)
+          this.ngOnInit()
         }
       })
     }
+  }
+
+  delete(id: string) {
+    this.moviesService.delete(id).subscribe({
+      next: (res) => {
+        console.log(res)
+        this.ngOnInit()
+      }
+    })
+  }
+
+  edit(id: string) {
+    this.moviesService.put(id, this.movie).subscribe({
+      next: (res) => {
+        console.log(res)
+        this.ngOnInit()
+      }
+    })
   }
 }
