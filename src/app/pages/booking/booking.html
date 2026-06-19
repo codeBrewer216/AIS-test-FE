@@ -47,6 +47,8 @@
               <button
                 class="seat"
                 [class.selected]="selectedSeats().includes(row + seat)"
+                [class.booked]="isSeatBooked(row + seat)"
+                [disabled]="isSeatBooked(row + seat)"
                 (click)="toggleSeat(row + seat)"
               >
                 {{ seat }}

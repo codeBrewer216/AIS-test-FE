@@ -98,6 +98,22 @@ p {
   color: white;
 }
 
+/* Visually distinguish booked/disabled seats */
+.seat.booked,
+.seat:disabled {
+  background: #9ca3af; /* muted gray */
+  color: #374151; /* darker text for contrast */
+  cursor: not-allowed;
+  opacity: 0.85;
+  transform: none;
+  box-shadow: none;
+}
+
+.seat.booked:hover,
+.seat:disabled:hover {
+  background: #9ca3af;
+}
+
 .showtime-section {
   margin: 24px 0;
   text-align: center;
