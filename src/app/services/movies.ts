@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth';
-import { isPlatformBrowser } from '@angular/common';
 
 export interface Movie {
   _id?: string

@@ -48,6 +48,7 @@ export class Booking {
       return;
     }
     this.selectedMovie.set(movie);
+    this.selectedShowtime.set(null)
     this.selectedSeats.set([]);
   }
 
