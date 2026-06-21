@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Movie, MoviesService, seats, ShowtimeResponse } from '../../services/movies';
 import { BookingService } from '../../services/booking';
+import { Router, RouterLink } from '@angular/router';
 
 
 
@@ -14,6 +15,7 @@ import { BookingService } from '../../services/booking';
 export class Booking {
   private moviesService = inject(MoviesService);
   private bookingService = inject(BookingService)
+  private router = inject(Router);
 
   showtimes = ['10:00', '14:00', '18:00'];
   rows = ['A', 'B', 'C', 'D', 'E'];
@@ -26,12 +28,33 @@ export class Booking {
   selectedSeats = signal<string[]>([]);
   showConfirmModal = signal(false);
   seatDetail = signal<seats[]>([])
+  notification = signal<{
+    message: string;
+    visible: boolean;
+  }>({
+    message: '',
+    visible: false,
+  });
+
   ngOnInit() {
     this.moviesService.getList().subscribe({
       next: (res: Movie[]) => {
         this.moviesList.set(res);
       },
     });
+  }
+
+  showNotification(message: string) {
+    this.notification.set({
+      message,
+      visible: true,
+    });
+    setTimeout(() => {
+      this.notification.update((n) => ({
+        ...n,
+        visible: false,
+      }));
+    }, 5000);
   }
 
   selectShowTime(time: string) {
@@ -94,22 +117,29 @@ export class Booking {
   closeReserveModal() {
     this.showConfirmModal.set(false);
   }
-
   confirmReservation() {
+
     const payload = {
       movieId: this.selectedMovie()?._id,
       seats: this.selectedSeats(),
+      room: this.selectedRoom(),
     };
-    this.booking({ rooms: this.selectedRoom(), movieId: payload.movieId ?? '', seatIds: payload.seats, startsAt: this.selectedShowtime() ?? '' })
-    // TODO:
-    // this.bookingService.create(payload).subscribe(...)
+    this.booking({
+      rooms:
+        this.selectedMovie()?.rooms[0] ??
+        '', movieId: payload.movieId ?? '', seatIds: payload.seats, startsAt: this.selectedShowtime() ?? ''
+    })
 
-    alert(
-      `Booking Success\nMovie: ${this.selectedMovie()?.name}\nSeats: ${this.selectedSeats().join(', ')}`
+    this.showNotification(
+      `Booking Success
+Movie: ${this.selectedMovie()?.name}
+Seats: ${this.selectedSeats().join(', ')}`
     );
-
     this.showConfirmModal.set(false);
     this.selectedSeats.set([]);
+    setTimeout(() => {
+      this.router.navigate(['/ticket']);
+    }, 3000);
   }
 
   checkShowTimeSeat() {
@@ -121,27 +151,42 @@ export class Booking {
             this.selectedRoom.set(res.showtimes[0].room)
             switch (this.selectedShowtime()) {
               case '10:00': {
-                const showtime = res.showtimes.find(
-                  (s) => new Date(s.startsAt).getUTCHours() === 3
-                );
+                const today = new Date().toDateString();
+                const showtime = res.showtimes.find((s) => {
+                  const startDate = new Date(s.startsAt);
+                  return (
+                    startDate.getUTCHours() === 3 &&
+                    startDate.toDateString() === today
+                  );
+                });
 
                 this.seatDetail.set(showtime?.seats ?? []);
                 return;
               }
 
               case '14:00': {
-                const showtime = res.showtimes.find(
-                  (s) => new Date(s.startsAt).getUTCHours() === 7
-                );
+                const today = new Date().toDateString();
+                const showtime = res.showtimes.find((s) => {
+                  const startDate = new Date(s.startsAt);
+                  return (
+                    startDate.getUTCHours() === 7 &&
+                    startDate.toDateString() === today
+                  );
+                });
 
                 this.seatDetail.set(showtime?.seats ?? []);
                 return;
               }
 
               case '18:00': {
-                const showtime = res.showtimes.find(
-                  (s) => new Date(s.startsAt).getUTCHours() === 11
-                );
+                const today = new Date().toDateString();
+                const showtime = res.showtimes.find((s) => {
+                  const startDate = new Date(s.startsAt);
+                  return (
+                    startDate.getUTCHours() === 11 &&
+                    startDate.toDateString() === today
+                  );
+                });
 
                 this.seatDetail.set(showtime?.seats ?? []);
                 return;

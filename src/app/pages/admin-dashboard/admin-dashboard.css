@@ -325,3 +325,30 @@ h1 {
     transform: translateY(0) scale(1);
   }
 }
+
+.material-select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: none;
+  border: 1px solid #bdbdbd;
+  background: transparent;
+  outline: none;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 12px 40px 12px 16px;
+}
+
+.material-select:focus {
+  border-bottom-color: #1976d2;
+}
+
+.material-select:hover {
+  border-bottom-color: #757575;
+}
+
+.material-select option {
+  background: white;
+  color: #333;
+}

@@ -317,3 +317,34 @@ p {
   background: #cbd5e1;
   cursor: not-allowed;
 }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #16a34a;
+  color: white;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  animation: slideIn 0.3s ease;
+}
+
+.toast pre {
+  margin: 0;
+  font-family: inherit;
+  white-space: pre-wrap;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

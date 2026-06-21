@@ -1,1 +1,31 @@
-<p>ticket works!</p>
+<div class="m-6">
+  <div>
+    <h1>Moives List</h1>
+  </div>
+  <table class="ticket-table">
+    <thead>
+      <tr>
+        <th>Movie</th>
+        <th>room</th>
+        <th>Showtime</th>
+        <th>seats Count</th>
+        <th>Status</th>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of ticketList(); track item) {
+        <tr>
+          <td>{{ item.movieId.name }}</td>
+          <td>{{ item.room }}</td>
+          <td>{{ item.startsAt | date: 'dd MMMM yyyy HH:mm' }}</td>
+          <td class="text-center">{{ item.seats.length }}</td>
+          <td class="text-center">{{ item.status }}</td>
+          <td class="text-center">
+            <button (click)="viewDetail(item._id)" class="btn-detail">Detail</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

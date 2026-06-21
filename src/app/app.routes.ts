@@ -7,6 +7,7 @@ import { Booking } from './pages/booking/booking';
 import { Ticket } from './pages/ticket/ticket';
 import { AuthLayout } from './layouts/auth-layout/auth-layout';
 import { Register } from './pages/register/register';
+import { TicketDetailComponent } from './pages/ticket-detail/ticket-detail-comonent';
 
 export const routes: Routes = [
   {
@@ -16,7 +17,8 @@ export const routes: Routes = [
       { path: '', component: Home },
       { path: 'admin', component: AdminDashboard },
       { path: 'booking', component: Booking },
-      { path: 'ticket', component: Ticket }
+      { path: 'ticket', component: Ticket },
+      { path: 'ticket/:id', component: TicketDetailComponent }
     ]
   },
   {

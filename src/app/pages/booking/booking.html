@@ -105,3 +105,9 @@
     </div>
   </div>
 }
+
+@if (notification().visible) {
+  <div class="toast">
+    <pre>{{ notification().message }}</pre>
+  </div>
+}

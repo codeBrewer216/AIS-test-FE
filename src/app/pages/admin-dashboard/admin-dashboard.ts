@@ -30,14 +30,15 @@ export class AdminDashboard {
   showDeleteModal = signal(false)
   selectMovieID = ''
   moviesList = signal<Movie[]>([]);
-  movie = {
+  movie: Movie = {
     name: '',
     description: '',
     length: 0,
     poster: '',
     startDate: new Date(),
     endDate: new Date(),
-    type: ''
+    type: '',
+    rooms: []
   };
   isImageLoading = false;
 
@@ -81,7 +82,8 @@ export class AdminDashboard {
         poster: selected.poster ?? '',
         startDate: selected.startDate ? new Date(selected.startDate as any) : new Date(),
         endDate: selected.endDate ? new Date(selected.endDate as any) : new Date(),
-        type: selected.type ?? ''
+        type: selected.type ?? '',
+        rooms: selected.rooms ?? []
       };
     }
     this.openModal();
@@ -96,8 +98,8 @@ export class AdminDashboard {
       length: 0,
       poster: '',
       startDate: new Date(),
-      endDate: new Date()
-
+      endDate: new Date(),
+      rooms: []
     };
     this.showModal.set(false);
   }

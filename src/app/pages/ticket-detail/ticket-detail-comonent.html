@@ -1,0 +1,72 @@
+<div class="ticket-container">
+  @if (id() === '') {
+    <div class="message loading">Loading...</div>
+  } @else if (id() === 'Not found') {
+    <div class="message error">Ticket not found.</div>
+  } @else {
+    <div class="ticket-card">
+      <div class="ticket-layout">
+        <div class="poster-section">
+          <img [src]="detail()?.movieId?.poster" [alt]="detail()?.movieId?.name" class="poster" />
+        </div>
+
+        <div class="detail-section">
+          <h1 class="movie-title">
+            {{ detail()?.movieId?.name }}
+          </h1>
+
+          <div class="ticket-info">
+            <p>
+              <span class="label">Booking ID:</span>
+              {{ detail()?._id }}
+            </p>
+
+            <p>
+              <span class="label">Room:</span>
+              {{ detail()?.room }}
+            </p>
+
+            <p>
+              <span class="label">Showtime:</span>
+              {{ detail()?.startsAt | date: 'dd/MM/yyyy HH:mm' }}
+            </p>
+
+            <p>
+              <span class="label">Seats:</span>
+              @for (seat of detail()?.seats; track seat._id) {
+                {{ seat.seatId }}
+                @if (!$last) {
+                  ,
+                }
+              }
+            </p>
+
+            <p>
+              <span class="label">Customer:</span>
+              {{ detail()?.userId?.username }}
+            </p>
+
+            <p>
+              <span class="label">Email:</span>
+              {{ detail()?.userId?.email }}
+            </p>
+
+            <p>
+              <span class="label">Status:</span>
+              <span class="status-badge">
+                {{ detail()?.status }}
+              </span>
+            </p>
+
+            <p>
+              <span class="label">Booked At:</span>
+              {{ detail()?.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+            </p>
+
+            <button class="md-button" (click)="printTicket()">Print Ticket</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -41,6 +41,7 @@ export interface Movie {
   startDate: Date,
   endDate: Date
   type: string
+  rooms: string[]
 }
 
 @Injectable({

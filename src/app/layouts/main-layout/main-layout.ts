@@ -8,14 +8,12 @@ import { AuthService } from '../../services/auth';
   styleUrl: './main-layout.css',
 })
 export class MainLayout {
+  private router: Router = inject(Router);
   private authService = inject(AuthService);
-  private router = inject(Router)
+
   path = this.router.url
   isLogined = this.authService.isLoggedIn()
   role = this.authService.getRole()
-  ngOnInit() {
-    console.log(this.path, this.role)
-  }
 
   logout() {
     this.authService.logout()

@@ -11,6 +11,7 @@
           <th>Description</th>
           <th>Type</th>
           <th>Duration (Minutes)</th>
+          <th>Rooms</th>
           <th>Poster</th>
           <th>Action</th>
         </tr>
@@ -21,8 +22,9 @@
           <tr>
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
-            <td>{{ item.type }}</td>
-            <td>{{ item.length }}</td>
+            <td class="text-center">{{ item.type }}</td>
+            <td class="text-center">{{ item.length }}</td>
+            <td class="text-center">{{ item.rooms[0].replace('-', ' ') }}</td>
             <td>
               <img [src]="item.poster" class="max-h-40 mx-auto" [alt]="item.name" />
             </td>
@@ -80,6 +82,15 @@
         <label>Duration (minutes)</label>
 
         <input type="number" [(ngModel)]="movie.length" />
+      </div>
+
+      <div class="form-group">
+        <label>Rooms</label>
+        <select [(ngModel)]="movie.rooms" class="material-select">
+          <option value="Room-1">Room 1</option>
+          <option value="Room-2">Room 2</option>
+          <option value="Room-3">Room 3</option>
+        </select>
       </div>
 
       <div class="form-group">
