@@ -348,3 +348,8 @@ p {
     opacity: 1;
   }
 }
+
+h1 {
+  font-size: x-large;
+  font-weight: 600;
+}

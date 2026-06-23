@@ -1,12 +1,12 @@
 import { Component, inject, signal, } from '@angular/core';
 import { AuthService } from '../../services/auth';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
 import { Movie, MoviesService } from '../../services/movies';
+import { RouterLink } from '@angular/router';
 @Component({
   standalone: true,
   selector: 'app-home',
-  imports: [FormsModule, RouterLink,],
+  imports: [FormsModule, RouterLink],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
 })
