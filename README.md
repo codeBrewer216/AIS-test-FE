@@ -188,10 +188,11 @@ Example API endpoints:
 
 1. จองตั๋วล่วงหน้า
 2. ยกเลิกตั๋วที่จองแล้ว
-3. Payment Gateway
-4. SSL Verification
-5. CI/CD Deployment Pipeline
-6. SEO
+3. PWA Implement
+4. Payment Gateway
+5. SSL Verification
+6. CI/CD Deployment Pipeline
+7. SEO
 
 ## Snapshot
 
