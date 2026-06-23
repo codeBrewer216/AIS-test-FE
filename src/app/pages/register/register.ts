@@ -1,11 +1,111 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { UserService } from '../../services/user';
+import { CommonModule } from '@angular/common';
+
+export function passwordMatchValidator(
+  control: AbstractControl
+): ValidationErrors | null {
+  const password = control.get('password')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value;
+  return password === confirmPassword
+    ? null
+    : { passwordMismatch: true };
+}
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, RouterLink],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
-export class Register { }
+export class Register {
+  private fb = inject(FormBuilder);
+  private userService = inject(UserService);
+
+  showPassword = false
+  showConfirmPassword = false
+
+
+
+  form = this.fb.group({
+    username: ['', [
+      Validators.required,
+      Validators.minLength(3)
+    ]],
+    email: ['', [
+      Validators.required,
+      Validators.email
+    ]],
+    password: ['', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.pattern(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/
+      )
+    ]],
+    confirmPassword: ['', Validators.required]
+  }, {
+    validators: passwordMatchValidator
+  });
+
+  get password() {
+    return this.form.get('password');
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  hasUppercase(): boolean {
+    return /[A-Z]/.test(this.password?.value ?? '');
+  }
+
+  hasLowercase(): boolean {
+    return /[a-z]/.test(this.password?.value ?? '');
+  }
+
+  hasNumber(): boolean {
+    return /\d/.test(this.password?.value ?? '');
+  }
+
+  hasSpecial(): boolean {
+    return /[!@#$%^&*(),.?":{}|<>]/.test(this.password?.value ?? '');
+  }
+
+  hasMinLength(): boolean {
+    return (this.password?.value?.length ?? 0) >= 8;
+  }
+
+  register() {
+    // console.log(this.form.errors);
+    // console.log(this.form.value);
+    // if (this.form.invalid) {
+    //   this.form.markAllAsTouched();
+    //   return;
+    // }
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    const { username, email, password } = this.form.getRawValue();
+    this.userService.register({
+      username: username!,
+      email: email!,
+      password: password!
+    }).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+}
