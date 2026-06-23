@@ -198,60 +198,60 @@ Example API endpoints:
 
 ### Homepage (Not Login Yet)
 
-![HomepageWithoutLogin](public/image/homepage.png)
+![HomepageWithoutLogin](public/image/homepage.png){ width=720 }
 
 ### Homepage (Already Login )
 
-![Homepage](public/image/homepage.png)
+![Homepage](public/image/homepage.png){ width=720 }
 
 ### Admin
 
-![Admin](public/image/admin.png)
+![Admin](public/image/admin.png){ width=720 }
 
 #### Add Movie
 
-![AdminAddMovie](public/image/admin-add.png)
+![AdminAddMovie](public/image/admin-add.png){ width=720 }
 
 #### Edit Movie
 
-![AdminEditMovie](public/image/admin-edit1.png)
-![AdminEditMovie](public/image/admin-edit2.png)
+![AdminEditMovie](public/image/admin-edit1.png){ width=720 }
+![AdminEditMovie](public/image/admin-edit2.png){ width=720 }
 
 #### Delete Movie
 
-![AdminDeleteMovie](public/image/admin-delete-dialog.png)
+![AdminDeleteMovie](public/image/admin-delete-dialog.png){ width=720 }
 
 ### Booking
 
-![Booking](public/image/booking.png)
+![Booking](public/image/booking.png){ width=720 }
 
 #### Select Movie
 
-![Booking](public/image/booking.png)
+![Booking](public/image/booking.png){ width=720 }
 
 #### Select Showtime
 
-![BookingSelectMovie](public/image/booking-selectshowtime.png)
+![BookingSelectMovie](public/image/booking-selectshowtime.png){ width=720 }
 
 #### Select Seats
 
-![BookingSelectSeats](public/image/booking-selectseats.png)
+![BookingSelectSeats](public/image/booking-selectseats.png){ width=720 }
 
 #### Confirm Reservation
 
-![BookingConfirmReservation](public/image/booking-confirm.png)
+![BookingConfirmReservation](public/image/booking-confirm.png){ width=720 }
 
 #### Already Booked
 
-![BookingAllreadyBooked](public/image/booking-alreadybooked.png)
+![BookingAllreadyBooked](public/image/booking-alreadybooked.png){ width=720 }
 
 ### Ticket
 
-![Ticket](public/image/ticket.png)
+![Ticket](public/image/ticket.png){ width=720 }
 
 #### Detail
 
-![TicketDetail](public/image/ticket-detail.png)
+![TicketDetail](public/image/ticket-detail.png){ width=720 }
 
 #### Ticket
 
