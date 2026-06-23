@@ -101,3 +101,10 @@ body {
   border-radius: 8px;
   cursor: pointer;
 }
+
+h3 {
+  color: #f9fafb;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}

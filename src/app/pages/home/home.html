@@ -13,40 +13,17 @@
   <h2 class="section-title">Now Showing</h2>
 
   <div class="movie-grid">
-    <div class="movie-card">
-      <img src="https://picsum.photos/300/450?random=1" alt="" />
-      <div class="movie-info">
-        <h3>Action Hero</h3>
-        <p>Action • Adventure</p>
-        <button>Reserve Ticket</button>
+    @for (item of moviesList(); track $index) {
+      <div class="movie-card">
+        <img [src]="item.poster" alt="" />
+        <div class="movie-info">
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.type }}</p>
+          @if (isLogined) {
+            <button routerLink="/booking">Reserve Ticket</button>
+          }
+        </div>
       </div>
-    </div>
-
-    <div class="movie-card">
-      <img src="https://picsum.photos/300/450?random=2" alt="" />
-      <div class="movie-info">
-        <h3>Galaxy War</h3>
-        <p>Sci-Fi • Adventure</p>
-        <button>Reserve Ticket</button>
-      </div>
-    </div>
-
-    <div class="movie-card">
-      <img src="https://picsum.photos/300/450?random=3" alt="" />
-      <div class="movie-info">
-        <h3>Haunted Night</h3>
-        <p>Horror • Thriller</p>
-        <button>Reserve Ticket</button>
-      </div>
-    </div>
-
-    <div class="movie-card">
-      <img src="https://picsum.photos/300/450?random=4" alt="" />
-      <div class="movie-info">
-        <h3>Love Forever</h3>
-        <p>Romance • Drama</p>
-        <button>Reserve Ticket</button>
-      </div>
-    </div>
+    }
   </div>
 </section>
