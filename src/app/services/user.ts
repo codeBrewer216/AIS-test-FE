@@ -13,12 +13,3 @@ export class UserService {
     return this.http.post(this.apiUrl, user);
   }
 }
-// curl -X 'POST' \
-//   'http://localhost:8000/users' \
-//   -H 'accept: */*' \
-//   -H 'Content-Type: application/json' \
-//   -d '{
-//   "username": "johndoe3",
-//   "email": "johndoe3@example.com",
-//   "password": "P@ssw0rd123"
-// }'
