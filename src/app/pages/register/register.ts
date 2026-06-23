@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user';
 import { CommonModule } from '@angular/common';
 
@@ -19,15 +19,14 @@ export function passwordMatchValidator(
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './register.html',
-  styleUrl: './register.css',
+  styleUrls: ['./register.css'],
 })
 export class Register {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
+  private router = inject(Router);
 
-  showPassword = false
-  showConfirmPassword = false
-
+  showPassword = { password: false, confirmPassword: false };
 
 
   form = this.fb.group({
@@ -56,11 +55,11 @@ export class Register {
   }
 
   togglePassword() {
-    this.showPassword = !this.showPassword;
+    this.showPassword.password = !this.showPassword.password;
   }
 
   toggleConfirmPassword() {
-    this.showConfirmPassword = !this.showConfirmPassword;
+    this.showPassword.confirmPassword = !this.showPassword.confirmPassword;
   }
 
   hasUppercase(): boolean {
@@ -84,12 +83,6 @@ export class Register {
   }
 
   register() {
-    // console.log(this.form.errors);
-    // console.log(this.form.value);
-    // if (this.form.invalid) {
-    //   this.form.markAllAsTouched();
-    //   return;
-    // }
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -101,7 +94,7 @@ export class Register {
       password: password!
     }).subscribe({
       next: (res) => {
-        console.log(res);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         console.error(err);

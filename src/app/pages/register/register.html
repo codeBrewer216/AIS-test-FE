@@ -33,12 +33,12 @@
     <div class="password-group">
       <input
         formControlName="password"
-        [type]="showPassword ? 'text' : 'password'"
+        [type]="showPassword.password ? 'text' : 'password'"
         placeholder="Enter password"
       />
       <button type="button" class="toggle-password" (click)="togglePassword()">
         <div class="text-amber-50 text-sm">
-          {{ showPassword ? 'Hidden' : 'Show' }}
+          {{ showPassword.password ? 'Hidden' : 'Show' }}
         </div>
       </button>
     </div>
@@ -70,12 +70,12 @@
     <div class="password-group">
       <input
         formControlName="confirmPassword"
-        [type]="showConfirmPassword ? 'text' : 'password'"
+        [type]="showPassword.confirmPassword ? 'text' : 'password'"
         placeholder="Confirm password"
       />
       <button type="button" class="toggle-password" (click)="toggleConfirmPassword()">
         <div class="text-amber-50 text-sm">
-          {{ showPassword ? 'Hidden' : 'Show' }}
+          {{ showPassword.confirmPassword ? 'Hidden' : 'Show' }}
         </div>
       </button>
     </div>

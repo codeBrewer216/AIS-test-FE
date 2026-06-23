@@ -64,7 +64,6 @@ export class Booking {
       return;
     }
     this.selectedShowtime.set(time);
-
     this.checkShowTimeSeat()
   }
 
