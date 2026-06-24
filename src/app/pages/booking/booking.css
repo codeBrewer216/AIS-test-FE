@@ -331,6 +331,18 @@ p {
   animation: slideIn 0.3s ease;
 }
 
+.toast.success {
+  background: #16a34a; /* green */
+}
+
+.toast.error {
+  background: #ef4444; /* red */
+}
+
+.toast.info {
+  background: #2563eb; /* blue */
+}
+
 .toast pre {
   margin: 0;
   font-family: inherit;

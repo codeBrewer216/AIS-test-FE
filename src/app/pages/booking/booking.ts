@@ -31,9 +31,11 @@ export class Booking {
   notification = signal<{
     message: string;
     visible: boolean;
+    type?: 'success' | 'error' | 'info';
   }>({
     message: '',
     visible: false,
+    type: 'success',
   });
 
   ngOnInit() {
@@ -44,10 +46,11 @@ export class Booking {
     });
   }
 
-  showNotification(message: string) {
+  showNotification(message: string, type: 'success' | 'error' | 'info' = 'success') {
     this.notification.set({
       message,
       visible: true,
+      type,
     });
     setTimeout(() => {
       this.notification.update((n) => ({
@@ -123,22 +126,30 @@ export class Booking {
       seats: this.selectedSeats(),
       room: this.selectedRoom(),
     };
-    this.booking({
+    const bookingPayload = {
       rooms:
         this.selectedMovie()?.rooms[0] ??
         '', movieId: payload.movieId ?? '', seatIds: payload.seats, startsAt: this.selectedShowtime() ?? ''
-    })
+    };
 
-    this.showNotification(
-      `Booking Success
-Movie: ${this.selectedMovie()?.name}
-Seats: ${this.selectedSeats().join(', ')}`
-    );
-    this.showConfirmModal.set(false);
-    this.selectedSeats.set([]);
-    setTimeout(() => {
-      this.router.navigate(['/ticket']);
-    }, 3000);
+    this.booking(bookingPayload).subscribe({
+      next: (res) => {
+        this.showNotification(
+          `Booking Success\nMovie: ${this.selectedMovie()?.name}\nSeats: ${this.selectedSeats().join(', ')}`
+        );
+        this.showConfirmModal.set(false);
+        this.selectedSeats.set([]);
+        this.checkShowTimeSeat();
+        setTimeout(() => {
+          this.router.navigate(['/ticket']);
+        }, 3000);
+      },
+      error: (err) => {
+        const msg = err && err.error && err.error.message ? err.error.message : (err && err.message ? err.message : 'Booking failed');
+        this.showNotification(msg);
+        console.error(err);
+      }
+    });
   }
 
   checkShowTimeSeat() {
@@ -200,6 +211,6 @@ Seats: ${this.selectedSeats().join(', ')}`
   }
 
   booking(dtp: { rooms: string, movieId: string, seatIds: Array<string>, startsAt: string }) {
-    this.bookingService.booking(dtp).subscribe({ next: (res) => { this.checkShowTimeSeat() } })
+    return this.bookingService.booking(dtp);
   }
 }

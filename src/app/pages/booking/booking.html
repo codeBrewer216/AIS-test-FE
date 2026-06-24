@@ -108,7 +108,12 @@
 }
 
 @if (notification().visible) {
-  <div class="toast">
+  <div
+    class="toast"
+    [class.success]="notification().type === 'success'"
+    [class.error]="notification().type === 'error'"
+    [class.info]="notification().type === 'info'"
+  >
     <pre>{{ notification().message }}</pre>
   </div>
 }
